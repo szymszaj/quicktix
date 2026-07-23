@@ -1,1 +1,2 @@
 # quicktix
+QuickTix is a mini event ticketing platform built to practice **Next.js**, **React**, and **payment integration**. Users can browse a list of events, view event details, select the number of tickets, and proceed to payment through **Stripe Checkout** (test mode). After a successful transaction, they receive a confirmation along with a unique ticket code. The backend is intentionally minimal, consisting of a single API route that creates the Stripe Checkout session.
