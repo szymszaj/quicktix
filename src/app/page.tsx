@@ -1,6 +1,9 @@
 import { EventGrid } from "@/components/organisms/EventGrid";
+import { getEventsData } from "@/parsers/getEventsData";
 
 export default function HomePage() {
+  const { events, categories } = getEventsData();
+
   return (
     <>
       <section className="bg-indigo-900 px-4 py-16 text-center sm:px-6">
@@ -16,7 +19,7 @@ export default function HomePage() {
         </p>
       </section>
 
-      <EventGrid />
+      <EventGrid events={events} categories={categories} />
     </>
   );
 }

@@ -1,19 +1,24 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { EVENTS } from "@/data/events";
+import { Event } from "@/types/event";
 import { EventCard } from "@/components/molecules/EventCard";
 import { CategoryFilter } from "@/components/molecules/CategoryFilter";
 
-const EventGrid = () => {
-  const [activeCategory, setActiveCategory] = useState("Wszystkie");
+type EventGridProps = {
+  events: Event[];
+  categories: readonly string[];
+};
+
+const EventGrid = ({ events, categories }: EventGridProps) => {
+  const [activeCategory, setActiveCategory] = useState(categories[0]);
 
   const filtered = useMemo(
     () =>
-      activeCategory === "Wszystkie"
-        ? EVENTS
-        : EVENTS.filter((e) => e.category === activeCategory),
-    [activeCategory],
+      activeCategory === categories[0]
+        ? events
+        : events.filter((e) => e.category === activeCategory),
+    [activeCategory, events, categories]
   );
 
   return (
@@ -28,7 +33,11 @@ const EventGrid = () => {
             {filtered.length === 1 ? "wydarzenie" : "wydarzeń"}
           </p>
         </div>
-        <CategoryFilter active={activeCategory} onChange={setActiveCategory} />
+        <CategoryFilter
+          categories={categories}
+          active={activeCategory}
+          onChange={setActiveCategory}
+        />
       </div>
 
       {filtered.length === 0 ? (

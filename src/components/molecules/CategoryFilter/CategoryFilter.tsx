@@ -1,16 +1,20 @@
 "use client";
 
 import { cn } from "@/utils/cn";
-import { EVENT_CATEGORIES } from "@/data/events";
 
 type CategoryFilterProps = {
+  categories: readonly string[];
   active: string;
   onChange: (category: string) => void;
 };
 
-const CategoryFilter = ({ active, onChange }: CategoryFilterProps) => (
+const CategoryFilter = ({
+  categories,
+  active,
+  onChange,
+}: CategoryFilterProps) => (
   <div className="flex flex-wrap gap-2">
-    {EVENT_CATEGORIES.map((cat) => (
+    {categories.map((cat) => (
       <button
         key={cat}
         onClick={() => onChange(cat)}
