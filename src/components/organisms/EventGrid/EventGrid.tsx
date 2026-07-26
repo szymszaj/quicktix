@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { TicketX } from "lucide-react";
 import { Event } from "@/types/event";
 import { EventCard } from "@/components/molecules/EventCard";
 import { CategoryFilter } from "@/components/molecules/CategoryFilter";
@@ -41,9 +42,9 @@ const EventGrid = ({ events, categories }: EventGridProps) => {
       </div>
 
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 py-24 text-center">
-          <span className="text-5xl">🎫</span>
-          <p className="text-gray-500">Brak wydarzeń w tej kategorii.</p>
+        <div className="flex flex-col items-center gap-3 py-24 text-center text-gray-400">
+          <TicketX size={48} strokeWidth={1.5} />
+          <p>Brak wydarzeń w tej kategorii.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

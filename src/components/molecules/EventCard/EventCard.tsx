@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Music2, Trophy, Clapperboard, MonitorPlay } from "lucide-react";
 import { Event } from "@/types/event";
 import { Badge } from "@/components/atoms/Badge";
 import { cn } from "@/utils/cn";
@@ -9,6 +10,13 @@ import { formatDate } from "@/utils/formatDate";
 
 type EventCardProps = {
   event: Event;
+};
+
+const CategoryIcon: Record<string, React.ElementType> = {
+  Koncert: Music2,
+  Sport: Trophy,
+  Teatr: Clapperboard,
+  Konferencja: MonitorPlay,
 };
 
 const SeatsBadge = ({
@@ -37,6 +45,7 @@ const SeatsBadge = ({
 
 const EventCard = ({ event }: EventCardProps) => {
   const sold = event.availableSeats === 0;
+  const Icon = CategoryIcon[event.category];
 
   return (
     <Link
@@ -47,9 +56,9 @@ const EventCard = ({ event }: EventCardProps) => {
         sold && "opacity-60",
       )}
     >
-      <div className="relative h-44 w-full overflow-hidden rounded-t-2xl bg-gradient-to-br from-indigo-100 to-indigo-200">
-        <div className="absolute inset-0 flex items-center justify-center text-5xl select-none">
-          {categoryEmoji[event.category]}
+      <div className="relative h-44 w-full overflow-hidden rounded-t-2xl bg-linear-to-br from-indigo-100 to-indigo-200">
+        <div className="absolute inset-0 flex items-center justify-center text-indigo-400">
+          {Icon && <Icon size={64} strokeWidth={1.25} />}
         </div>
         <div className="absolute top-3 left-3">
           <Badge label={event.category} />
@@ -101,13 +110,6 @@ const EventCard = ({ event }: EventCardProps) => {
       </div>
     </Link>
   );
-};
-
-const categoryEmoji: Record<string, string> = {
-  Koncert: "🎵",
-  Sport: "⚽",
-  Teatr: "🎭",
-  Konferencja: "💻",
 };
 
 export default EventCard;
