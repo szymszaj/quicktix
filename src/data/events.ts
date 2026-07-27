@@ -14,7 +14,7 @@ export const EVENTS: Event[] = [
     availableSeats: 1240,
     image: "/images/coldplay.jpg",
     description:
-      "Spektakularne show z laserami, konfetti i interaktywnymi opaskami LED. Coldplay powraca do Polski z trasą Music of the Spheres — jedno z najbardziej widowiskowych wydarzeń roku.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
     artist: "Coldplay",
   },
   {
@@ -30,7 +30,7 @@ export const EVENTS: Event[] = [
     availableSeats: 5420,
     image: "/images/legia.jpg",
     description:
-      "Historyczne starcie — Legia Warszawa zmierzy się z FC Barcelona w wyjątkowym meczu towarzyskim. Nie przegap okazji zobaczyć gwiazdy katalońskiego klubu na żywo.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
   },
   {
     id: "3",
@@ -45,7 +45,7 @@ export const EVENTS: Event[] = [
     availableSeats: 32,
     image: "/images/hamlet.jpg",
     description:
-      'Klasyczna adaptacja Szekspirowskiego "Hamleta" w reżyserii Jana Klaty. Spektakl zachwyca nowoczesną scenografią i nieprzeciętną grą aktorską.',
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
   },
   {
     id: "4",
@@ -60,7 +60,7 @@ export const EVENTS: Event[] = [
     availableSeats: 380,
     image: "/images/react-summit.jpg",
     description:
-      "Największa konferencja React w Polsce. Dwa dni warsztatów, prelekcji i networkingu z najlepszymi deweloperami z całego świata. Agenda obejmuje najnowsze trendy w ekosystemie React.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
   },
   {
     id: "5",
@@ -75,7 +75,7 @@ export const EVENTS: Event[] = [
     availableSeats: 2100,
     image: "/images/dua-lipa.jpg",
     description:
-      "Dua Lipa wyrusza w trasę promującą nowy album Radical Optimism. Rewelacyjna produkcja, taneczne choreografie i największe hity — wieczór, którego nie zapomnisz.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
     artist: "Dua Lipa",
   },
   {
@@ -91,7 +91,7 @@ export const EVENTS: Event[] = [
     availableSeats: 12300,
     image: "/images/polska.jpg",
     description:
-      "Kluczowy mecz Ligi Narodów UEFA — Polska zmierzy się z Niemcami w walce o utrzymanie w najwyższej dywizji. Kibicuj Biało-Czerwonym na żywo!",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
   },
   {
     id: "7",
@@ -106,7 +106,7 @@ export const EVENTS: Event[] = [
     availableSeats: 0,
     image: "/images/mistrz.jpg",
     description:
-      "Operowa adaptacja arcydzieła Michaiła Bułhakowa. Premierowe przedstawienie łączące muzykę, taniec i multimedialne projekcje w jedynym w swoim rodzaju spektaklu.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
   },
   {
     id: "8",
@@ -121,7 +121,7 @@ export const EVENTS: Event[] = [
     availableSeats: 1750,
     image: "/images/ai-summit.jpg",
     description:
-      "Największe wydarzenie AI w Europie Środkowo-Wschodniej. Keynotes od liderów branży, warsztaty hands-on i targi innowacji. Odkryj przyszłość technologii razem z tysiącami specjalistów.",
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
   },
 ];
 
