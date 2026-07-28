@@ -64,7 +64,7 @@ const TicketForm = ({ eventId, price, availableSeats }: TicketFormProps) => {
         <button
           onClick={() => setQuantity((q) => Math.max(1, q - 1))}
           disabled={quantity <= 1}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-xl font-bold text-gray-600 hover:border-indigo-400 hover:text-indigo-600 disabled:opacity-30 transition-colors cursor-pointer"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-xl font-bold text-gray-500 hover:border-gray-400 hover:text-gray-900 disabled:opacity-30 transition-colors cursor-pointer"
         >
           −
         </button>
@@ -74,7 +74,7 @@ const TicketForm = ({ eventId, price, availableSeats }: TicketFormProps) => {
         <button
           onClick={() => setQuantity((q) => Math.min(max, q + 1))}
           disabled={quantity >= max}
-          className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-xl font-bold text-gray-600 hover:border-indigo-400 hover:text-indigo-600 disabled:opacity-30 transition-colors cursor-pointer"
+          className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-xl font-bold text-gray-500 hover:border-gray-400 hover:text-gray-900 disabled:opacity-30 transition-colors cursor-pointer"
         >
           +
         </button>
@@ -82,7 +82,7 @@ const TicketForm = ({ eventId, price, availableSeats }: TicketFormProps) => {
       </div>
 
       <div className="mb-5 flex items-center justify-between rounded-xl bg-gray-50 px-4 py-3">
-        <span className="text-sm text-gray-500">Łącznie</span>
+        <span className="text-sm text-gray-400">Łącznie</span>
         <span className="text-xl font-bold text-gray-900">
           {formatPrice(price * quantity)}
         </span>
