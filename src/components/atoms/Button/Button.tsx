@@ -12,11 +12,11 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const variantClasses: Record<ButtonVariant, string> = {
   [ButtonVariant.PRIMARY]:
-    'bg-indigo-600 text-white hover:bg-indigo-700 border border-indigo-600',
+    'bg-orange-500 text-white hover:bg-orange-600 border border-orange-500',
   [ButtonVariant.SECONDARY]:
-    'bg-white text-indigo-600 border border-indigo-600 hover:bg-indigo-50',
+    'bg-white text-gray-900 border border-gray-300 hover:border-gray-500',
   [ButtonVariant.GHOST]:
-    'bg-transparent text-gray-600 border border-gray-200 hover:border-gray-400 hover:text-gray-900',
+    'bg-transparent text-gray-500 border border-gray-200 hover:border-gray-400 hover:text-gray-800',
 }
 
 const sizeClasses: Record<NonNullable<ButtonProps['size']>, string> = {
@@ -38,7 +38,7 @@ const Button = ({
 }: ButtonProps) => {
   const classes = cn(
     'inline-flex items-center justify-center gap-2 rounded-xl font-semibold cursor-pointer',
-    'transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-indigo-400',
+    'transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-orange-400',
     sizeClasses[size],
     disabled ? 'opacity-50 pointer-events-none' : variantClasses[variant],
     fullWidth && 'w-full',
