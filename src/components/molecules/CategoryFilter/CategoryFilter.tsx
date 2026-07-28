@@ -21,8 +21,8 @@ const CategoryFilter = ({
         className={cn(
           "rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 cursor-pointer",
           active === cat
-            ? "bg-indigo-600 text-white shadow-sm"
-            : "bg-white text-gray-600 border border-gray-200 hover:border-indigo-300 hover:text-indigo-600",
+            ? "bg-zinc-900 text-white"
+            : "bg-white text-gray-500 border border-gray-200 hover:border-gray-400 hover:text-gray-900",
         )}
       >
         {cat}

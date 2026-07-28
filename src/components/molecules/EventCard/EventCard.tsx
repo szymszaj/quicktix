@@ -35,7 +35,7 @@ const SeatsBadge = ({
         "text-xs font-medium",
         sold && "text-red-500",
         !sold && pct < 0.1 && "text-orange-500",
-        !sold && pct >= 0.1 && "text-gray-500",
+        !sold && pct >= 0.1 && "text-gray-400",
       )}
     >
       {sold ? "Wyprzedane" : `${available.toLocaleString("pl-PL")} miejsc`}
@@ -56,8 +56,8 @@ const EventCard = ({ event }: EventCardProps) => {
         sold && "opacity-60",
       )}
     >
-      <div className="relative h-44 w-full overflow-hidden rounded-t-2xl bg-linear-to-br from-indigo-100 to-indigo-200">
-        <div className="absolute inset-0 flex items-center justify-center text-indigo-400">
+      <div className="relative h-44 w-full overflow-hidden rounded-t-2xl bg-zinc-100">
+        <div className="absolute inset-0 flex items-center justify-center text-zinc-300">
           {Icon && <Icon size={64} strokeWidth={1.25} />}
         </div>
         <div className="absolute top-3 left-3">
@@ -73,11 +73,11 @@ const EventCard = ({ event }: EventCardProps) => {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <h3 className="line-clamp-2 text-base font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors">
+        <h3 className="line-clamp-2 text-base font-semibold text-gray-900 group-hover:text-orange-500 transition-colors">
           {event.title}
         </h3>
 
-        <div className="flex flex-col gap-1 text-sm text-gray-500">
+        <div className="flex flex-col gap-1 text-sm text-gray-400">
           <span>
             {formatDate(event.date)} · {event.time}
           </span>
@@ -101,7 +101,7 @@ const EventCard = ({ event }: EventCardProps) => {
               "rounded-lg px-4 py-2 text-sm font-semibold transition-colors",
               sold
                 ? "bg-gray-100 text-gray-400"
-                : "bg-indigo-600 text-white group-hover:bg-indigo-700",
+                : "bg-orange-500 text-white group-hover:bg-orange-600",
             )}
           >
             {sold ? "Brak biletów" : "Kup bilet"}
