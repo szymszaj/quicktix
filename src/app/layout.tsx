@@ -1,13 +1,18 @@
-import type { Metadata } from 'next'
-import './globals.css'
-import { Navbar } from '@/components/organisms/Navbar'
+import type { Metadata } from "next";
+import "./globals.css";
+import { Navbar } from "@/components/organisms/Navbar";
 
 export const metadata: Metadata = {
-  title: 'QuickTix — Bilety na wydarzenia',
-  description: 'Kup bilety na koncerty, mecze, spektakle i konferencje w kilka sekund.',
-}
+  title: "QuickTix — Bilety na wydarzenia",
+  description:
+    "Kup bilety na koncerty, mecze, spektakle i konferencje w kilka sekund.",
+};
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="pl" className="h-full">
       <body className="flex min-h-full flex-col antialiased">
@@ -18,5 +23,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </footer>
       </body>
     </html>
-  )
+  );
 }
