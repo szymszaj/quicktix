@@ -19,7 +19,7 @@ const EventGrid = ({ events, categories }: EventGridProps) => {
       activeCategory === categories[0]
         ? events
         : events.filter((e) => e.category === activeCategory),
-    [activeCategory, events, categories]
+    [activeCategory, events, categories],
   );
 
   return (
