@@ -8,7 +8,7 @@ import { ReturnButton } from "./ReturnButton";
 export default async function ReturnsPage() {
   const session = await auth();
   const purchases = await prisma.purchase.findMany({
-    where: { userId: session?.user?.id! },
+    where: { userId: session?.user?.id },
     orderBy: { createdAt: "desc" },
   });
 
@@ -37,9 +37,12 @@ export default async function ReturnsPage() {
               <div>
                 <p className="font-semibold text-gray-900">{p.eventTitle}</p>
                 <p className="mt-0.5 text-xs text-gray-400">
-                  {p.quantity} {p.quantity === 1 ? "bilet" : "bilety"} · {formatPrice(p.totalPrice)}
+                  {p.quantity} {p.quantity === 1 ? "bilet" : "bilety"} ·{" "}
+                  {formatPrice(p.totalPrice)}
                 </p>
-                <p className="mt-0.5 font-mono text-xs text-gray-400">{p.ticketCode}</p>
+                <p className="mt-0.5 font-mono text-xs text-gray-400">
+                  {p.ticketCode}
+                </p>
               </div>
               <ReturnButton purchaseId={p.id} />
             </div>

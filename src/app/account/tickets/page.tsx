@@ -8,7 +8,7 @@ import { cn } from "@/utils/cn";
 export default async function TicketsPage() {
   const session = await auth();
   const purchases = await prisma.purchase.findMany({
-    where: { userId: session?.user?.id! },
+    where: { userId: session?.user?.id },
     orderBy: { createdAt: "desc" },
   });
 
@@ -36,7 +36,8 @@ export default async function TicketsPage() {
                   <p className="font-semibold text-gray-900">{p.eventTitle}</p>
                   <p className="mt-0.5 text-xs text-gray-400">
                     {p.quantity} {p.quantity === 1 ? "bilet" : "bilety"} ·{" "}
-                    {formatPrice(p.totalPrice)} · {formatDate(p.createdAt.toISOString())}
+                    {formatPrice(p.totalPrice)} ·{" "}
+                    {formatDate(p.createdAt.toISOString())}
                   </p>
                   <p className="mt-1.5 font-mono text-sm font-bold tracking-widest text-orange-500">
                     {p.ticketCode}
@@ -49,7 +50,7 @@ export default async function TicketsPage() {
                   "self-start rounded-full px-3 py-1 text-xs font-semibold sm:self-center",
                   p.status === "active"
                     ? "bg-emerald-100 text-emerald-700"
-                    : "bg-gray-100 text-gray-500"
+                    : "bg-gray-100 text-gray-500",
                 )}
               >
                 {p.status === "active" ? "Aktywny" : "Zwrócony"}
