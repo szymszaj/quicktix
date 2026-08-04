@@ -5,17 +5,29 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/atoms/Button";
+import { EMAIL_RE, fieldClass } from "@/lib/auth-form";
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  function validate() {
+    const next: typeof errors = {};
+    if (!email) next.email = "Email jest wymagany.";
+    else if (!EMAIL_RE.test(email)) next.email = "Podaj prawidłowy adres email.";
+    if (!password) next.password = "Hasło jest wymagane.";
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
+    setServerError(null);
+    if (!validate()) return;
     setLoading(true);
 
     const res = await signIn("credentials", {
@@ -27,7 +39,7 @@ export default function LoginPage() {
     setLoading(false);
 
     if (res?.error) {
-      setError("Nieprawidłowy email lub hasło.");
+      setServerError("Nieprawidłowy email lub hasło.");
       return;
     }
 
@@ -38,15 +50,20 @@ export default function LoginPage() {
   return (
     <div className="flex min-h-[70vh] items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="mb-2 text-2xl font-extrabold text-gray-900">Zaloguj się</h1>
+        <h1 className="mb-2 text-2xl font-extrabold text-gray-900">
+          Zaloguj się
+        </h1>
         <p className="mb-8 text-sm text-gray-400">
           Nie masz konta?{" "}
-          <Link href="/register" className="text-orange-500 hover:underline font-medium">
+          <Link
+            href="/register"
+            className="text-orange-500 hover:underline font-medium"
+          >
             Zarejestruj się
           </Link>
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
           <div>
             <label className="mb-1.5 block text-sm font-medium text-gray-700">
               Email
@@ -54,11 +71,16 @@ export default function LoginPage() {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (errors.email) setErrors((p) => ({ ...p, email: undefined }));
+              }}
+              className={fieldClass(errors.email)}
               placeholder="jan@example.com"
             />
+            {errors.email && (
+              <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+            )}
           </div>
 
           <div>
@@ -68,16 +90,21 @@ export default function LoginPage() {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (errors.password) setErrors((p) => ({ ...p, password: undefined }));
+              }}
+              className={fieldClass(errors.password)}
               placeholder="••••••••"
             />
+            {errors.password && (
+              <p className="mt-1 text-xs text-red-500">{errors.password}</p>
+            )}
           </div>
 
-          {error && (
+          {serverError && (
             <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
-              {error}
+              {serverError}
             </p>
           )}
 

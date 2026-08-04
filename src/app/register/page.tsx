@@ -5,18 +5,50 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/atoms/Button";
+import { EMAIL_RE, PASSWORD_RE, fieldClass } from "@/lib/auth-form";
+
+type FormErrors = {
+  name?: string;
+  email?: string;
+  password?: string;
+  confirm?: string;
+};
 
 export default function RegisterPage() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [confirm, setConfirm] = useState("");
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  function validate() {
+    const next: FormErrors = {};
+    if (!name.trim()) next.name = "Imię i nazwisko jest wymagane.";
+    else if (name.trim().length < 2)
+      next.name = "Imię musi mieć co najmniej 2 znaki.";
+    if (!email) next.email = "Email jest wymagany.";
+    else if (!EMAIL_RE.test(email))
+      next.email = "Podaj prawidłowy adres email.";
+    if (!password) next.password = "Hasło jest wymagane.";
+    else if (!PASSWORD_RE.test(password))
+      next.password = "Hasło musi mieć min. 8 znaków, zawierać literę i cyfrę.";
+    if (!confirm) next.confirm = "Potwierdzenie hasła jest wymagane.";
+    else if (confirm !== password) next.confirm = "Hasła nie są identyczne.";
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  }
+
+  function clearError(field: keyof FormErrors) {
+    if (errors[field]) setErrors((p) => ({ ...p, [field]: undefined }));
+  }
+
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
+    setServerError(null);
+    if (!validate()) return;
     setLoading(true);
 
     const res = await fetch("/api/register", {
@@ -27,7 +59,7 @@ export default function RegisterPage() {
 
     if (!res.ok) {
       const data = await res.json();
-      setError(data.error ?? "Coś poszło nie tak.");
+      setServerError(data.error ?? "Coś poszło nie tak.");
       setLoading(false);
       return;
     }
@@ -53,7 +85,11 @@ export default function RegisterPage() {
           </Link>
         </p>
 
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-4"
+          noValidate
+        >
           <div>
             <label className="mb-1.5 block text-sm font-medium text-gray-700">
               Imię i nazwisko
@@ -61,10 +97,16 @@ export default function RegisterPage() {
             <input
               type="text"
               value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+              onChange={(e) => {
+                setName(e.target.value);
+                clearError("name");
+              }}
+              className={fieldClass(errors.name)}
               placeholder="Jan Kowalski"
             />
+            {errors.name && (
+              <p className="mt-1 text-xs text-red-500">{errors.name}</p>
+            )}
           </div>
 
           <div>
@@ -74,11 +116,16 @@ export default function RegisterPage() {
             <input
               type="email"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
+              onChange={(e) => {
+                setEmail(e.target.value);
+                clearError("email");
+              }}
+              className={fieldClass(errors.email)}
               placeholder="jan@example.com"
             />
+            {errors.email && (
+              <p className="mt-1 text-xs text-red-500">{errors.email}</p>
+            )}
           </div>
 
           <div>
@@ -88,17 +135,40 @@ export default function RegisterPage() {
             <input
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              minLength={6}
-              className="w-full rounded-xl border border-gray-200 px-4 py-3 text-sm outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100 transition"
-              placeholder="min. 6 znaków"
+              onChange={(e) => {
+                setPassword(e.target.value);
+                clearError("password");
+              }}
+              className={fieldClass(errors.password)}
+              placeholder="min. 8 znaków, litera i cyfra"
             />
+            {errors.password && (
+              <p className="mt-1 text-xs text-red-500">{errors.password}</p>
+            )}
           </div>
 
-          {error && (
+          <div>
+            <label className="mb-1.5 block text-sm font-medium text-gray-700">
+              Potwierdź hasło
+            </label>
+            <input
+              type="password"
+              value={confirm}
+              onChange={(e) => {
+                setConfirm(e.target.value);
+                clearError("confirm");
+              }}
+              className={fieldClass(errors.confirm)}
+              placeholder="••••••••"
+            />
+            {errors.confirm && (
+              <p className="mt-1 text-xs text-red-500">{errors.confirm}</p>
+            )}
+          </div>
+
+          {serverError && (
             <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">
-              {error}
+              {serverError}
             </p>
           )}
 
