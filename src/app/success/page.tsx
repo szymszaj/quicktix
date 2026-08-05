@@ -41,16 +41,18 @@ export default async function SuccessPage({ searchParams }: Props) {
           });
         }
       }
-    } catch {
-      // Stripe nie skonfigurowany lub błąd sieci — pokazujemy tylko kod
-    }
+    } catch {}
   }
 
   return (
     <div className="flex min-h-[60vh] items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl border border-gray-100 bg-white p-10 text-center shadow-sm">
         <div className="mb-6 flex justify-center">
-          <CheckCircle size={64} strokeWidth={1.25} className="text-emerald-500" />
+          <CheckCircle
+            size={64}
+            strokeWidth={1.25}
+            className="text-emerald-500"
+          />
         </div>
 
         <h1 className="text-2xl font-extrabold text-gray-900">
@@ -77,7 +79,12 @@ export default async function SuccessPage({ searchParams }: Props) {
           <Button href="/account/tickets" fullWidth>
             Moje bilety
           </Button>
-          <Button href="/" variant={ButtonVariant.SECONDARY} className="border-gray-200" fullWidth>
+          <Button
+            href="/"
+            variant={ButtonVariant.SECONDARY}
+            className="border-gray-200"
+            fullWidth
+          >
             Wróć do wydarzeń
           </Button>
         </div>
