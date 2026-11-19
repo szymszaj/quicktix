@@ -10,7 +10,7 @@ type Props = {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const { event } = getEventData(id);
+  const { event } = await getEventData(id);
 
   if (!event) return { title: "Wydarzenie nie istnieje" };
 
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function EventPage({ params }: Props) {
   const { id } = await params;
-  const { event } = getEventData(id);
+  const { event } = await getEventData(id);
 
   if (!event) notFound();
 

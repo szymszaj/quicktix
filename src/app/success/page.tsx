@@ -1,12 +1,9 @@
 import { CheckCircle } from "lucide-react";
 import Stripe from "stripe";
-import { prisma } from "@/lib/prisma";
 import { Button, ButtonVariant } from "@/components/atoms/Button";
+import { ensurePurchaseFromSession, generateTicketCode } from "@/lib/purchase";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
-const generateTicketCode = (sessionId: string) =>
-  `QT-${sessionId.slice(-8).toUpperCase()}`;
 
 type Props = {
   searchParams: Promise<{ session_id?: string }>;
@@ -20,27 +17,8 @@ export default async function SuccessPage({ searchParams }: Props) {
   if (session_id && process.env.STRIPE_SECRET_KEY?.startsWith("sk_")) {
     try {
       const session = await stripe.checkout.sessions.retrieve(session_id);
-      const meta = session.metadata ?? {};
       ticketCode = generateTicketCode(session_id);
-
-      if (meta.userId && meta.eventId) {
-        const exists = await prisma.purchase.findUnique({
-          where: { ticketCode },
-        });
-
-        if (!exists) {
-          await prisma.purchase.create({
-            data: {
-              userId: meta.userId,
-              eventId: meta.eventId,
-              eventTitle: meta.eventTitle ?? "Wydarzenie",
-              quantity: Number(meta.quantity ?? 1),
-              totalPrice: Number(meta.totalPrice ?? 0),
-              ticketCode,
-            },
-          });
-        }
-      }
+      await ensurePurchaseFromSession(session);
     } catch {}
   }
 

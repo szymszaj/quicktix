@@ -3,9 +3,9 @@ import { EventGrid } from "@/components/organisms/EventGrid";
 import { getHomepageData } from "@/parsers/getHomepageData";
 import { getEventsData } from "@/parsers/getEventsData";
 
-export default function HomePage() {
+export default async function HomePage() {
   const { hero } = getHomepageData();
-  const { events, categories } = getEventsData();
+  const { events, categories } = await getEventsData();
 
   return (
     <>

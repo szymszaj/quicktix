@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Nieprawidłowe dane." }, { status: 400 });
   }
 
-  const { event } = getEventData(eventId as string);
+  const { event } = await getEventData(eventId as string);
 
   if (!event) {
     return NextResponse.json(
